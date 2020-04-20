@@ -1,3 +1,5 @@
+'use strict';
+
 let price;
 const destination = prompt('Введите название страны назначения:', '');
 

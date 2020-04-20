@@ -1,12 +1,23 @@
 {
   "extends": ["airbnb", "prettier"],
   "plugins": ["prettier"],
+  "env": {
+    "browser": true
+  },
   "rules": {
     "prettier/prettier": ["error"],
     "no-console": "off",
     "no-alert": "off",
     "strict": "off",
     "no-undef": "warn",
-    "func-names": ["error", "never"]
+    "func-names": ["error", "never"],
+    "space-before-function-paren": [
+      "error",
+      {
+        "anonymous": "always",
+        "named": "always",
+        "asyncArrow": "always"
+      }
+    ]
   }
 }

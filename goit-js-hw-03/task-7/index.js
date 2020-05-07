@@ -1,32 +1,30 @@
 'use strict';
 
-let taId = 0; // Начальный счетчик ID транзакций
-
 const account = {
   balance: 0,
-
+  taId: 0, // Начальный счетчик ID транзакций
   transactions: [],
 
   createTransaction(amount, type) {
-    taId += 1;
+    this.taId += 1;
     const transaction = {
-      transactionId: taId,
+      transactionId: this.taId,
       transactionAmount: amount,
       transactionType: type,
     };
-    this.transactions.push(transaction);
+    return transaction;
   },
 
   deposit(amount) {
     this.balance += amount;
-    this.createTransaction(amount, 'deposit');
+    this.transactions.push(this.createTransaction(amount, 'deposit'));
     return `Операция прошла успешно, внесено ${amount} кредитов на Ваш счет`;
   },
 
   withdraw(amount) {
     if (amount <= this.balance) {
       this.balance -= amount;
-      this.createTransaction(amount, 'withdraw');
+      this.transactions.push(this.createTransaction(amount, 'withdraw'));
     } else {
       return 'Недостаточно средств на счету!';
     }
@@ -47,23 +45,13 @@ const account = {
   },
 
   getTransactionTotal(type) {
-    let totalDeposit = 0;
-    let totalWithdraw = 0;
-    for (const transaction of this.transactions) {
-      if (transaction.transactionType === 'deposit') {
-        totalDeposit += transaction.transactionAmount;
-      }
-      if (transaction.transactionType === 'withdraw') {
-        totalWithdraw += transaction.transactionAmount;
+    let total = 0;
+    for (const obj of this.transactions) {
+      if (obj.transactionType === type) {
+        total += obj.transactionAmount;
       }
     }
-    if (type === 'deposit') {
-      return totalDeposit;
-    }
-    if (type === 'withdraw') {
-      return totalWithdraw;
-    }
-    return 'Wrong transaction type!';
+    return total;
   },
 };
 
@@ -79,5 +67,6 @@ console.log(account.withdraw(320));
 console.log(account.getBalance());
 console.log(account.getTransactionDetails(2));
 console.log(account.getTransactionTotal('deposit'));
+console.log(account.getTransactionTotal('withdraw'));
 console.log(account);
 console.log(account.transactions);

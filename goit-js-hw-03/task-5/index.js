@@ -11,10 +11,9 @@ const getAllPropValues = function (arr, prop) {
   const result = [];
   let item = {};
   for (item of arr) {
-    if (item[prop] === undefined) {
-      return result;
+    if (item[prop]) {
+      result.push(item[prop]);
     }
-    result.push(item[prop]);
   }
   return result;
 };

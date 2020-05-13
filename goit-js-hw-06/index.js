@@ -33,7 +33,7 @@ console.log(getUsersWithGender(Users, 'male')); // [ 'Moore Hensley', 'Ross Vazq
 console.log('===============Task-4================');
 
 const getInactiveUsers = users => {
-  const innactiveUsers = users.filter(user => user.isActive === false);
+  const innactiveUsers = users.filter(user => !user.isActive);
   return innactiveUsers;
 };
 

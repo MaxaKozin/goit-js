@@ -11,10 +11,12 @@ const createItem = (galleryItem, indexCounter) => {
   item.classList.add('gallery__item');
   const link = document.createElement('a');
   link.classList.add('gallery__link');
+  link.href = galleryItem.original;
   const image = document.createElement('img');
   image.classList.add('gallery__image');
   image.alt = galleryItem.description;
   image.src = galleryItem.preview;
+  image.dataset.source = galleryItem.original;
   image.dataset.index = indexCounter;
   link.appendChild(image);
   item.appendChild(link);
@@ -55,12 +57,12 @@ const addSource = (arr, counter) => {
   modalImage.alt = arr[counter].description;
 };
 
-const swapImage = (items, add) => {
+const swapImage = (items, param) => {
   const filtered = items.filter(item => item.original === modalImage.src);
   const currentImage = filtered[0];
   const currentIndex = items.indexOf(currentImage);
-  if (currentIndex + add >= 0 && currentIndex + add < items.length) {
-    addSource(galleryItems, currentIndex + add);
+  if (currentIndex + param >= 0 && currentIndex + param < items.length) {
+    addSource(galleryItems, currentIndex + param);
   }
 };
 

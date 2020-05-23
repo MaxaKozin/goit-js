@@ -36,17 +36,15 @@ const createGallery = items => {
 window.onload = createGallery(galleryItems);
 
 const openModal = counter => {
-  window.addEventListener('keydown', onPressEsc);
-  window.addEventListener('keydown', onRightClick);
-  window.addEventListener('keydown', onLeftClick);
+  window.addEventListener('keydown', onCloseEvent);
+  window.addEventListener('keydown', onArrowButtonsClick);
   lightbox.classList.add('is-open');
   addSource(galleryItems, counter);
 };
 
 const closeModal = () => {
-  window.removeEventListener('keydown', onPressEsc);
-  window.removeEventListener('keydown', onRightClick);
-  window.removeEventListener('keydown', onLeftClick);
+  window.removeEventListener('keydown', onCloseEvent);
+  window.removeEventListener('keydown', onArrowButtonsClick);
   lightbox.classList.remove('is-open');
   modalImage.src = '';
   modalImage.alt = '';
@@ -66,12 +64,6 @@ const swapImage = (items, param) => {
   }
 };
 
-const onPressEsc = event => {
-  if (event.code === 'Escape') {
-    closeModal();
-  }
-};
-
 const onGalleryClick = event => {
   event.preventDefault();
   const itemCounter = Number(event.target.dataset.index);
@@ -80,30 +72,26 @@ const onGalleryClick = event => {
   }
 };
 
-const onButtonClick = event => {
+const onCloseEvent = event => {
   if (event.target === closeBtn) {
     closeModal();
   }
-};
-
-const onBackdropClick = event => {
   if (event.target === modalContent) {
+    closeModal();
+  }
+  if (event.code === 'Escape') {
     closeModal();
   }
 };
 
-const onLeftClick = event => {
+const onArrowButtonsClick = event => {
   if (event.code === 'ArrowLeft') {
     swapImage(galleryItems, -1);
   }
-};
-
-const onRightClick = event => {
   if (event.code === 'ArrowRight') {
     swapImage(galleryItems, 1);
   }
 };
 
 gallery.addEventListener('click', onGalleryClick);
-lightbox.addEventListener('click', onButtonClick);
-lightbox.addEventListener('click', onBackdropClick);
+lightbox.addEventListener('click', onCloseEvent);

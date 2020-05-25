@@ -6,38 +6,42 @@ const Theme = {
 const switcherRef = document.querySelector('.js-switch-input');
 const bodyRef = document.querySelector('body');
 
+const themeApplying = (keyApply, keyRemove) => {
+  bodyRef.classList.remove(Theme[keyRemove]);
+  bodyRef.classList.add(Theme[keyApply]);
+  localStorage.setItem('theme', Theme[keyApply]);
+  console.log(`${Theme[keyApply]} applied`);
+};
+
+const storageSave = (themeApply, themeRemove) => {
+  bodyRef.classList.remove(themeRemove);
+  bodyRef.classList.add(themeApply);
+  if (themeApply === Theme.LIGHT) {
+    switcherRef.checked = false;
+  }
+  if (themeApply === Theme.DARK) {
+    switcherRef.checked = true;
+  }
+};
 
 switcherRef.addEventListener('change', event => {
   if (event.target.checked) {
-    bodyRef.classList.remove(Theme.LIGHT);
-    bodyRef.classList.add(Theme.DARK);
-    localStorage.setItem('theme', Theme.DARK);
-    console.log('dark theme applied');
+    themeApplying('DARK', 'LIGHT');
   }
   if (!event.target.checked) {
-    bodyRef.classList.remove(Theme.DARK);
-    bodyRef.classList.add(Theme.LIGHT);
-    localStorage.setItem('theme', Theme.LIGHT);
-    console.log('light theme applied');
+    themeApplying('LIGHT', 'DARK');
   }
 });
 
-document.addEventListener('DOMContentLoaded', e => {
+document.addEventListener('DOMContentLoaded', () => {
   if (localStorage.theme) {
     if (localStorage.theme === Theme.LIGHT) {
-      bodyRef.classList.remove(Theme.DARK);
-      bodyRef.classList.add(Theme.LIGHT);
-      switcherRef.checked = false;
+      storageSave(Theme.LIGHT, Theme.DARK);
     }
     if (localStorage.theme === Theme.DARK) {
-      bodyRef.classList.remove(Theme.LIGHT);
-      bodyRef.classList.add(Theme.DARK);
-      switcherRef.checked = true;
+      storageSave(Theme.DARK, Theme.LIGHT);
     }
+  } else {
+    storageSave(Theme.LIGHT, Theme.DARK);
   }
-  else {
-    bodyRef.classList.remove(Theme.DARK);
-    bodyRef.classList.add(Theme.LIGHT);
-    switcherRef.checked = false;
-  }
-})
+});

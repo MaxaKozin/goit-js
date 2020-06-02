@@ -1,0 +1,56 @@
+.input {
+  display: block;
+  padding: 10px;
+  margin-bottom: 30px;
+  width: 94vw;
+}
+
+.card-item {
+  display: flex;
+  margin: 0 auto;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.description-wrapper {
+  max-width: 40vw;
+}
+
+.population {
+  font-weight: bold;
+  > span {
+    font-weight: normal;
+  }
+}
+
+.languages {
+  padding: 0;
+  font-weight: bold;
+
+  &__item {
+    font-weight: normal;
+    margin-left: 20px;
+  }
+}
+
+.flag {
+  max-width: 40vw;
+}
+
+.country {
+  padding-left: 20px;
+  position: relative;
+}
+
+.country::before {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #000;
+  position: absolute;
+  left: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+}

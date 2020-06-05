@@ -14,6 +14,11 @@ const loadMoreButton = new LoadMoreButton({
 
 refs.searchForm.addEventListener('submit', onSearch);
 loadMoreButton.refs.button.addEventListener('click', fetchPictures);
+refs.gallery.addEventListener('click', event => {
+  const instance = basicLightbox.create(`
+    <img src="${event.target.dataset.source}">`);
+  instance.show();
+});
 
 function onSearch(event) {
   event.preventDefault();
@@ -27,8 +32,6 @@ function onSearch(event) {
   form.reset();
 }
 
-let topHeight = 0;
-
 function fetchPictures() {
   loadMoreButton.disable();
 
@@ -36,9 +39,8 @@ function fetchPictures() {
     updateMarkup(pictures);
     loadMoreButton.show();
     loadMoreButton.enable();
-    topHeight += 1000;
-    window.scrollTo({
-      top: topHeight,
+    window.scrollBy({
+      top: window.innerHeight,
       behavior: 'smooth',
     });
   });
@@ -47,10 +49,3 @@ function fetchPictures() {
 function clearMarkup() {
   refs.gallery.innerHTML = '';
 }
-
-refs.gallery.addEventListener('click', event => {
-  const instance = basicLightbox.create(`
-    <img src="${event.target.dataset.source}">`);
-  instance.show();
-  console.log(event.target.dataset.source);
-});

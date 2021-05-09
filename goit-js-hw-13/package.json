@@ -53,7 +53,7 @@
     "@pnotify/mobile": "^5.1.2",
     "basiclightbox": "^5.0.3",
     "core-js": "^3.6.4",
-    "handlebars": "^4.7.3",
+    "handlebars": "^4.7.7",
     "lodash.debounce": "^4.0.8"
   }
 }
